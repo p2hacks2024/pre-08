@@ -1,13 +1,16 @@
 PImage bulbOffImage; // 光っていない電球画像
 PImage bulbOnImage;  // 光っている電球画像
-int gmn = 0; // 画面を管理する関数
+int gmn = 0; // 画面を管理するフラグ
 PFont font; // 日本語フォント
-int bulbCount = 10; // 電球の数
-boolean[] bulbStates; // 電球の状態を管理するリスト
-int currentBulb = 0; // 現在制御している電球のインデックス
-boolean glowing = true; // 電球が光る方向（trueなら光る、falseなら消える）
-int frameCounter = 0; // アニメーション用のフレームカウンタ
-boolean showRing = true; // 電球リングを表示するかどうかを管理
+int innerBulbCount = 8; // 内側の電球数
+int outerBulbCount = 12; // 外側の電球数
+boolean[] innerBulbStates; // 内側電球の状態
+boolean[] outerBulbStates; // 外側電球の状態
+boolean showOddBulbs = true; // 奇数電球を点灯フラグ
+float innerRingRadius = 250; // 内側リングの半径
+float outerRingRadius = 350; // 外側リングの半径
+int bulbSwitchTimer = 0; // 電球の点灯切り替えタイマー
+int bulbSize = 100; // 電球のサイズ
 
 void setup() {
   fullScreen(); // ウィンドウサイズ
@@ -15,14 +18,17 @@ void setup() {
   bulbOnImage = loadImage("電球点灯.PNG"); // 光っている電球画像をロード
   font = createFont("Dialog.bold", 50); // 日本語フォントをロード
   textFont(font);
-  bulbStates = new boolean[bulbCount]; // 電球の状態を初期化
+  innerBulbStates = new boolean[innerBulbCount]; // 内側電球の状態を初期化
+  outerBulbStates = new boolean[outerBulbCount]; // 外側電球の状態を初期化
 }
 
 void draw() {
-  background(255); // 背景を設定
+  background(255); // 背景色
+  drawQuizText(); // クイズのタイトルを表示
+
   if (gmn == 0) {
     drawStartScreen();
-    if (showRing) animateBulbs();
+    animateBulbs();
   } else if (gmn == 1) {
     drawWelcomeScreen();
   }

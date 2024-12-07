@@ -1,37 +1,53 @@
-void animateBulbs() {
-  frameCounter++;
-  if (frameCounter % 10 == 0) { // アニメーション速度を調整（10フレームごとに更新）
-    if (glowing) {
-      bulbStates[currentBulb] = true; // 現在の電球を光らせる
-    } else {
-      bulbStates[currentBulb] = false; // 現在の電球を消す
-    }
 
-    currentBulb++;
-    if (currentBulb >= bulbCount) {
-      currentBulb = 0; // 最初の電球に戻る
-      glowing = !glowing; // 光る/消えるを切り替える
-    }
+void animateBulbs() {
+  // 1秒ごとに点灯パターンを切り替え
+  if (millis() - bulbSwitchTimer > 1000) {
+    bulbSwitchTimer = millis();
+    showOddBulbs = !showOddBulbs; // 奇数・偶数を切り替え
   }
 
-  drawBulbRing(width / 2, height / 2, 150, bulbCount);
+  // 内側リングの状態更新
+  for (int i = 0; i < innerBulbCount; i++) {
+    innerBulbStates[i] = (showOddBulbs && i % 2 == 0) || (!showOddBulbs && i % 2 != 0);
+  }
+
+  // 外側リングの状態更新（内側から1つずらす）
+  for (int i = 0; i < outerBulbCount; i++) {
+    int shiftedIndex = (i + 1) % outerBulbCount; // 1つずらす
+    outerBulbStates[i] = innerBulbStates[shiftedIndex % innerBulbCount];
+  }
+
+  // 電球リング描画
+  drawBulbRing(width / 2, height / 2, innerRingRadius, innerBulbCount, innerBulbStates);
+  drawBulbRing(width / 2, height / 2, outerRingRadius, outerBulbCount, outerBulbStates);
+}
+
+void drawBulbRing(float x, float y, float radius, int count, boolean[] states) {
+  for (int i = 0; i < count; i++) {
+    float angle = TWO_PI / count * i;
+    float bx = x + cos(angle) * radius;
+    float by = y + sin(angle) * radius;
+    drawBulb(bx, by, bulbSize, bulbSize, states[i]);
+  }
 }
 
 void drawBulb(float x, float y, float width, float height, boolean isOn) {
   if (isOn) {
-    image(bulbOnImage, x, y, width, height);
+    image(bulbOnImage, x - width / 2, y - height / 2, width, height); // 中心を基準に配置
   } else {
-    image(bulbOffImage, x, y, width, height);
+    image(bulbOffImage, x - width / 2, y - height / 2, width, height);
   }
 }
 
 void drawStartScreen() {
-  if (showRing) { // 電球リングを表示
-    drawBulbRing(width / 2, height / 2, 150, bulbCount);
-  }
+  // 電球リングの描画
+  drawBulbRing(width / 2, height / 2, innerRingRadius, innerBulbCount, innerBulbStates);
+  drawBulbRing(width / 2, height / 2, outerRingRadius, outerBulbCount, outerBulbStates);
+
+  // スタートボタンの描画
   boolean hover = isMouseOverStartButton();
   fill(hover ? color(150, 0, 0) : color(255, 0, 0)); // ホバー時に暗くする
-  ellipse(width / 2, height / 2, 200, 150); // ボタン
+  ellipse(width / 2, height / 2, 150, 100); // ボタン
   fill(0);
   textAlign(CENTER, CENTER);
   text("スタート", width / 2, height / 2); // スタート文字
@@ -43,22 +59,22 @@ void drawWelcomeScreen() {
   text("ようこそ！", width / 2, height / 2);
 }
 
-void drawBulbRing(float x, float y, float radius, int count) {
-  for (int i = 0; i < count; i++) {
-    float angle = TWO_PI / count * i;
-    float bx = x + cos(angle) * radius;
-    float by = y + sin(angle) * radius;
-    drawBulb(bx, by, 100, 100, bulbStates[i]);
-  }
+void drawQuizText() {
+  fill(0);
+  textAlign(CENTER, CENTER);
+  textSize(50);
+  text("クイズ", width / 2, 50); // 上部に「クイズ」を表示
 }
 
 boolean isMouseOverStartButton() {
-  return dist(mouseX, mouseY, width / 2, height / 2) < 100;
+  return dist(mouseX, mouseY, width / 2, height / 2) < 75;
 }
 
 void mousePressed() {
   if (gmn == 0 && isMouseOverStartButton()) {
-    gmn = 1;
-    showRing = false; // 電球リングを非表示にする
+    gmn = 1; // ゲーム開始
+    // 電球をすべて消灯
+    for (int i = 0; i < innerBulbCount; i++) innerBulbStates[i] = false;
+    for (int i = 0; i < outerBulbCount; i++) outerBulbStates[i] = false;
   }
 }

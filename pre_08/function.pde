@@ -1,13 +1,43 @@
 // スタート画面の描画
 void drawStartScreen() {
- image(NeonImage,  -20,  0, width, height/6*5);
+  if (millis() - displayTimer > 300 && currentCharIndex < titleText.length()) {
+    currentCharIndex++;
+    displayTimer = millis();
+  }
+  // 「QUIZ」の文字を左下から左上に配置してネオンエフェクト適用
+  for (int i = 0; i < 4 && i < currentCharIndex; i++) {
+    char c = titleText.charAt(i);
+    float x = width / 4;
+    float y = 0 + 200 + i * 100;
+    Neon(x, y, 60, String.valueOf(c), color(random(255), random(255), random(255)));
+  }
 
+  // 「GAME」の文字を右上から右下に配置してネオンエフェクト適用
+  for (int i = 4; i < 8 && i < currentCharIndex; i++) {
+    char c = titleText.charAt(i);
+    float x = width - width / 4;
+    float y = 100 + (i - 4) * 100;
+    Neon(x, y, 60, String.valueOf(c), color(random(255), random(255), random(255)));
+  }
   boolean hover = isMouseOverStartButton();
   fill(hover ? color(150, 0, 0) : color(255, 0, 0));
-  ellipse(width / 2, height / 9*8, 250, 100);
+  ellipse(width / 6*5, height / 6*5, 200, 100);
 
   // ネオン文字で「スタート」を描画
-  Neon(width / 2, height / 9*8, 50, "スタート", color(0, 255, 255));
+  Neon(width / 6*5, height / 6*5, 50, "スタート", color(0, 255, 255));
+   // 全文字が表示されたら画像をフェード表示
+  if (currentCharIndex == titleText.length()) {
+    if (!fadeOut) {
+      if (fadeAlpha < 255) fadeAlpha += 15;
+    } else {
+      if (fadeAlpha > 0) fadeAlpha -= 15;
+    }
+    tint(255, fadeAlpha);
+    image(NeonBulb, 0, 0, width, height / 6 * 5);
+    if (fadeAlpha <= 0 || fadeAlpha >= 255) {
+      fadeOut = !fadeOut;
+    }
+  }
 }
 
 // 説明画面の描画
@@ -16,10 +46,8 @@ void drawExplanationScreen() {
   textAlign(CENTER, CENTER);
   textSize(40);
   text("これはゲームです。\nボタンをクリックしてゲームを始めてください！", width / 2, height / 2 - 50);
-
   // ゲームスタートボタン
-  boolean hover = isMouseOverGameStartButton();
-  fill(hover ? color(0, 150, 0) : color(0, 255, 0));
+  fill(0, 255, 0);
   rect(width / 2 - 100, height / 2 + 50, 200, 100, 20);
 
   fill(255);
@@ -47,7 +75,7 @@ void mousePressed() {
 
 // スタートボタンのマウスオーバーチェック
 boolean isMouseOverStartButton() {
-  return dist(mouseX, mouseY, width / 2, height / 2) < 75;
+  return dist(mouseX, mouseY, width / 6*5, height / 6*5) < 75;
 }
 
 // ゲームスタートボタンのマウスオーバーチェック
@@ -75,6 +103,20 @@ void Neon(float x, float y, float size, String string, color mainColor) {
 
   previousX[0] = wobbleX;
   previousY[0] = wobbleY;
+
+  // 残像を描画
+  for (int i = 1; i < previousX.length; i++) {
+    float alfa = map(i, 1, previousX.length, 40, 10);
+    color shadowColor = color(red(mainColor), green(mainColor), blue(mainColor), alfa);
+
+    for (int blur = 1; blur <= 3; blur++) {
+      fill(shadowColor, alfa / blur);
+      textSize(size * (1 - blur * 0.05));
+      text(string, previousX[i] + blur, previousY[i] + blur);
+      text(string, previousX[i] - blur, previousY[i] - blur);
+    }
+  }
+
   // メインの文字を描画
   fill(mainColor, 230);
   text(string, wobbleX, wobbleY);

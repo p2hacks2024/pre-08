@@ -1,80 +1,89 @@
-
-void animateBulbs() {
-  // 1秒ごとに点灯パターンを切り替え
-  if (millis() - bulbSwitchTimer > 1000) {
-    bulbSwitchTimer = millis();
-    showOddBulbs = !showOddBulbs; // 奇数・偶数を切り替え
-  }
-
-  // 内側リングの状態更新
-  for (int i = 0; i < innerBulbCount; i++) {
-    innerBulbStates[i] = (showOddBulbs && i % 2 == 0) || (!showOddBulbs && i % 2 != 0);
-  }
-
-  // 外側リングの状態更新（内側から1つずらす）
-  for (int i = 0; i < outerBulbCount; i++) {
-    int shiftedIndex = (i + 1) % outerBulbCount; // 1つずらす
-    outerBulbStates[i] = innerBulbStates[shiftedIndex % innerBulbCount];
-  }
-
-  // 電球リング描画
-  drawBulbRing(width / 2, height / 2, innerRingRadius, innerBulbCount, innerBulbStates);
-  drawBulbRing(width / 2, height / 2, outerRingRadius, outerBulbCount, outerBulbStates);
-}
-
-void drawBulbRing(float x, float y, float radius, int count, boolean[] states) {
-  for (int i = 0; i < count; i++) {
-    float angle = TWO_PI / count * i;
-    float bx = x + cos(angle) * radius;
-    float by = y + sin(angle) * radius;
-    drawBulb(bx, by, bulbSize, bulbSize, states[i]);
-  }
-}
-
-void drawBulb(float x, float y, float width, float height, boolean isOn) {
-  if (isOn) {
-    image(bulbOnImage, x - width / 2, y - height / 2, width, height); // 中心を基準に配置
-  } else {
-    image(bulbOffImage, x - width / 2, y - height / 2, width, height);
-  }
-}
-
+// スタート画面の描画
 void drawStartScreen() {
-  // 電球リングの描画
-  drawBulbRing(width / 2, height / 2, innerRingRadius, innerBulbCount, innerBulbStates);
-  drawBulbRing(width / 2, height / 2, outerRingRadius, outerBulbCount, outerBulbStates);
+ image(NeonImage,  -20,  0, width, height/6*5);
 
-  // スタートボタンの描画
   boolean hover = isMouseOverStartButton();
-  fill(hover ? color(150, 0, 0) : color(255, 0, 0)); // ホバー時に暗くする
-  ellipse(width / 2, height / 2, 150, 100); // ボタン
-  fill(0);
-  textAlign(CENTER, CENTER);
-  text("スタート", width / 2, height / 2); // スタート文字
+  fill(hover ? color(150, 0, 0) : color(255, 0, 0));
+  ellipse(width / 2, height / 9*8, 250, 100);
+
+  // ネオン文字で「スタート」を描画
+  Neon(width / 2, height / 9*8, 50, "スタート", color(0, 255, 255));
 }
 
-void drawWelcomeScreen() {
+// 説明画面の描画
+void drawExplanationScreen() {
   fill(0);
   textAlign(CENTER, CENTER);
-  text("ようこそ！", width / 2, height / 2);
+  textSize(40);
+  text("これはゲームです。\nボタンをクリックしてゲームを始めてください！", width / 2, height / 2 - 50);
+
+  // ゲームスタートボタン
+  boolean hover = isMouseOverGameStartButton();
+  fill(hover ? color(0, 150, 0) : color(0, 255, 0));
+  rect(width / 2 - 100, height / 2 + 50, 200, 100, 20);
+
+  fill(255);
+  textSize(30);
+  text("ゲームスタート", width / 2, height / 2 + 100);
 }
 
-void drawQuizText() {
+// ゲーム画面の描画
+void drawGameScreen() {
+  background(200, 220, 255); // ゲーム用の背景色
   fill(0);
   textAlign(CENTER, CENTER);
   textSize(50);
-  text("クイズ", width / 2, 50); // 上部に「クイズ」を表示
+  text("ゲーム画面へようこそ！", width / 2, height / 2);
 }
 
+// マウスクリックの処理
+void mousePressed() {
+  if (gmn == 0 && isMouseOverStartButton()) {
+    gmn = 1; // 説明画面へ移動
+  } else if (gmn == 1 && isMouseOverGameStartButton()) {
+    gmn = 2; // ゲーム画面へ移動
+  }
+}
+
+// スタートボタンのマウスオーバーチェック
 boolean isMouseOverStartButton() {
   return dist(mouseX, mouseY, width / 2, height / 2) < 75;
 }
 
-void mousePressed() {
-  if (gmn == 0 && isMouseOverStartButton()) {
-    gmn = 1; // ゲーム開始
-    // 電球をすべて消灯
-    for (int i = 0; i < innerBulbCount; i++) innerBulbStates[i] = false;
-    for (int i = 0; i < outerBulbCount; i++) outerBulbStates[i] = false;
+// ゲームスタートボタンのマウスオーバーチェック
+boolean isMouseOverGameStartButton() {
+  return mouseX > width / 2 - 100 && mouseX < width / 2 + 100 && mouseY > height / 2 + 50 && mouseY < height / 2 + 150;
+}
+
+// ネオン効果を描画
+void Neon(float x, float y, float size, String string, color mainColor) {
+  PFont japaneseFont = createFont("Dialog.bold", size); // 日本語対応フォント
+  textFont(japaneseFont);
+  textAlign(CENTER, CENTER);
+
+  wobbleTime += 0.1;
+  float wobbleAmount = size * 0.035;
+
+  // 残像エフェクトの更新
+  for (int i = previousX.length - 1; i > 0; i--) {
+    previousX[i] = previousX[i - 1];
+    previousY[i] = previousY[i - 1];
+  }
+
+  float wobbleX = x + sin(wobbleTime * 0.5) * wobbleAmount;
+  float wobbleY = y + cos(wobbleTime * 0.5) * wobbleAmount;
+
+  previousX[0] = wobbleX;
+  previousY[0] = wobbleY;
+  // メインの文字を描画
+  fill(mainColor, 230);
+  text(string, wobbleX, wobbleY);
+
+  // グロー効果を描画
+  for (int glow = 1; glow <= 3; glow++) {
+    noFill();
+    stroke(mainColor, 30 / glow);
+    strokeWeight(size / (20 * glow));
+    text(string, x, y);
   }
 }

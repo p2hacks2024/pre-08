@@ -1,14 +1,43 @@
 // スタート画面の描画
 void drawStartScreen() {
-  drawBulbRing(width / 2, height / 2, innerRingRadius, innerBulbCount, innerBulbStates);
-  drawBulbRing(width / 2, height / 2, outerRingRadius, outerBulbCount, outerBulbStates);
+  if (millis() - displayTimer > 300 && currentCharIndex < titleText.length()) {
+    currentCharIndex++;
+    displayTimer = millis();
+  }
+  // 「QUIZ」の文字を左下から左上に配置してネオンエフェクト適用
+  for (int i = 0; i < 4 && i < currentCharIndex; i++) {
+    char c = titleText.charAt(i);
+    float x = width / 4;
+    float y = 0 + 200 + i * 100;
+    Neon(x, y, 60, String.valueOf(c), color(random(255), random(255), random(255)));
+  }
 
+  // 「GAME」の文字を右上から右下に配置してネオンエフェクト適用
+  for (int i = 4; i < 8 && i < currentCharIndex; i++) {
+    char c = titleText.charAt(i);
+    float x = width - width / 4;
+    float y = 100 + (i - 4) * 100;
+    Neon(x, y, 60, String.valueOf(c), color(random(255), random(255), random(255)));
+  }
   boolean hover = isMouseOverStartButton();
   fill(hover ? color(150, 0, 0) : color(255, 0, 0));
-  ellipse(width / 2, height / 2, 150, 100);
+  ellipse(width / 6*5, height / 6*5, 200, 100);
 
   // ネオン文字で「スタート」を描画
-  Neon(width / 2, height / 2, 50, "スタート", color(0, 255, 255));
+  Neon(width / 6*5, height / 6*5, 50, "スタート", color(0, 255, 255));
+   // 全文字が表示されたら画像をフェード表示
+  if (currentCharIndex == titleText.length()) {
+    if (!fadeOut) {
+      if (fadeAlpha < 255) fadeAlpha += 15;
+    } else {
+      if (fadeAlpha > 0) fadeAlpha -= 15;
+    }
+    tint(255, fadeAlpha);
+    image(NeonBulb, 0, 0, width, height / 6 * 5);
+    if (fadeAlpha <= 0 || fadeAlpha >= 255) {
+      fadeOut = !fadeOut;
+    }
+  }
 }
 
 // 説明画面の描画
@@ -17,10 +46,8 @@ void drawExplanationScreen() {
   textAlign(CENTER, CENTER);
   textSize(40);
   text("これはゲームです。\nボタンをクリックしてゲームを始めてください！", width / 2, height / 2 - 50);
-
   // ゲームスタートボタン
-  boolean hover = isMouseOverGameStartButton();
-  fill(hover ? color(0, 150, 0) : color(0, 255, 0));
+  fill(0, 255, 0);
   rect(width / 2 - 100, height / 2 + 50, 200, 100, 20);
 
   fill(255);
@@ -37,49 +64,6 @@ void drawGameScreen() {
   text("ゲーム画面へようこそ！", width / 2, height / 2);
 }
 
-// 電球アニメーション
-void animateBulbs() {
-  // 一定時間で奇数・偶数を切り替え
-  if (millis() - bulbSwitchTimer > 1000) {
-    bulbSwitchTimer = millis();
-    showOddBulbs = !showOddBulbs;
-  }
-
-  // 内側リングの電球状態を設定
-  for (int i = 0; i < innerBulbCount; i++) {
-    innerBulbStates[i] = (showOddBulbs && i % 2 == 0) || (!showOddBulbs && i % 2 != 0);
-  }
-
-  // 外側リングの電球状態を設定
-  for (int i = 0; i < outerBulbCount; i++) {
-    int shiftedIndex = (i + 1) % outerBulbCount;
-    outerBulbStates[i] = innerBulbStates[shiftedIndex % innerBulbCount];
-  }
-
-  // リングを描画
-  drawBulbRing(width / 2, height / 2, innerRingRadius, innerBulbCount, innerBulbStates);
-  drawBulbRing(width / 2, height / 2, outerRingRadius, outerBulbCount, outerBulbStates);
-}
-
-// 電球リングを描画
-void drawBulbRing(float x, float y, float radius, int count, boolean[] states) {
-  for (int i = 0; i < count; i++) {
-    float angle = TWO_PI / count * i;
-    float bx = x + cos(angle) * radius;
-    float by = y + sin(angle) * radius;
-    drawBulb(bx, by, bulbSize, bulbSize, states[i]);
-  }
-}
-
-// 電球を描画
-void drawBulb(float x, float y, float width, float height, boolean isOn) {
-  if (isOn) {
-    image(bulbOnImage, x - width / 2, y - height / 2, width, height);
-  } else {
-    image(bulbOffImage, x - width / 2, y - height / 2, width, height);
-  }
-}
-
 // マウスクリックの処理
 void mousePressed() {
   if (gmn == 0 && isMouseOverStartButton()) {
@@ -91,7 +75,7 @@ void mousePressed() {
 
 // スタートボタンのマウスオーバーチェック
 boolean isMouseOverStartButton() {
-  return dist(mouseX, mouseY, width / 2, height / 2) < 75;
+  return dist(mouseX, mouseY, width / 6*5, height / 6*5) < 75;
 }
 
 // ゲームスタートボタンのマウスオーバーチェック

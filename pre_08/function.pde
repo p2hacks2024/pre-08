@@ -81,18 +81,27 @@ void drawStartScreen() {
 }
 
 // 説明画面の描画
-void drawExplanationScreen() {
-  fill(0);
+void drawExplanationScreen_1() {
+  String title = "ルール説明";
+  String page1 = "１/３";
+  String page2 = "２/３";
+  String page3 = "３/３";
+  tint(255,255,255,64);
+  image(NeonBulb, 0, 0, width, height / 6 * 5);
+  Neon(width/2,100,150,title,color(0,255,0));
+  fill(255);
   textAlign(CENTER, CENTER);
-  textSize(40);
-  text("これはゲームです。\nボタンをクリックしてゲームを始めてください！", width / 2, height / 2 - 50);
+  textSize(60);
+  text("このゲームは反射神経、観察力をためすゲームです。\nまた、脳年齢を測定します。\n制限時間内に出題された問題の正しい答えを選んでください。\n出題される問題は全部で10問です。\n", width / 2, height / 2 - 50);
   // ゲームスタートボタン
   fill(0, 255, 0);
-  rect(width / 2 - 100, height / 2 + 50, 200, 100, 20);
+  rect(width - 470, height - 300, 250, 120, 20);
 
   fill(255);
+  textSize(50);
+  text(page1,width - 645,height - 490 + 250);
   textSize(30);
-  text("ゲームスタート", width / 2, height / 2 + 100);
+  text("ゲームスタート", width - 345, height -490 + 250);
 }
 
 // ゲーム画面の描画

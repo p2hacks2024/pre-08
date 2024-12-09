@@ -28,7 +28,7 @@ void draw() {
   if (gmn == 0) {
     drawStartScreen(); // スタート画面を描画
   } else if (gmn == 1) {
-    drawExplanationScreen(); // 説明画面を描画
+    drawExplanationScreen_1(); // 説明画面を描画
   } else if (gmn == 2) {
     drawGameScreen(); // ゲーム画面を描画
   }

@@ -42,10 +42,10 @@ void drawStartScreen() {
 
 // 説明画面の描画
 void drawExplanationScreen() {
-  fill(0);
+  fill(255);
   textAlign(CENTER, CENTER);
   textSize(40);
-  text("これはゲームです。\nボタンをクリックしてゲームを始めてください！", width / 2, height / 2 - 50);
+  text("このゲームはあなたの反射神経、日常観察力をためすゲームです。\nボタンをクリックしてゲームを始めてください！", width / 2, height / 2 - 50);
   // ゲームスタートボタン
   fill(0, 255, 0);
   rect(width / 2 - 100, height / 2 + 50, 200, 100, 20);

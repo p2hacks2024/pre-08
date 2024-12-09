@@ -14,7 +14,7 @@ float[] previousY = new float[5];  // 前フレームのY位置履歴
 
 void setup() {
   fullScreen();
-  NeonBulb = loadImage("ネオンクイズ.png");
+  NeonBulb = loadImage("ネオンクイズ.PNG");
   font = createFont("Dialog.bold", 50);
   textFont(font);
   colorMode(RGB, 255);

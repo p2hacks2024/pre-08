@@ -1,30 +1,27 @@
 // スタート画面の描画
 void drawStartScreen() {
-  if (millis() - displayTimer > 300 && currentCharIndex < titleText.length()) {
+  if (millis() - displayTimer > 400 && currentCharIndex < titleText.length()) {
     currentCharIndex++;
     displayTimer = millis();
   }
   // 「QUIZ」の文字を左下から左上に配置してネオンエフェクト適用
   for (int i = 0; i < 4 && i < currentCharIndex; i++) {
     char c = titleText.charAt(i);
-    float x = width / 4;
-    float y = 0 + 200 + i * 100;
-    Neon(x, y, 60, String.valueOf(c), color(random(255), random(255), random(255)));
+    float x = width / 9 + i * 100;
+    float y =  200 ;
+    Neon(x, y, 90, String.valueOf(c), color(random(255), random(255), random(255)));
   }
 
   // 「GAME」の文字を右上から右下に配置してネオンエフェクト適用
   for (int i = 4; i < 8 && i < currentCharIndex; i++) {
     char c = titleText.charAt(i);
-    float x = width - width / 4;
-    float y = 100 + (i - 4) * 100;
-    Neon(x, y, 60, String.valueOf(c), color(random(255), random(255), random(255)));
+    float x = width/ 9 * 4 + i * 100;
+    float y = 200 ;
+    Neon(x, y, 90, String.valueOf(c), color((i*255), random(255), random(255)));
   }
-  boolean hover = isMouseOverStartButton();
-  fill(hover ? color(150, 0, 0) : color(255, 0, 0));
-  ellipse(width / 6*5, height / 6*5, 200, 100);
+  
 
-  // ネオン文字で「スタート」を描画
-  Neon(width / 6*5, height / 6*5, 50, "スタート", color(0, 255, 255));
+ 
    // 全文字が表示されたら画像をフェード表示
   if (currentCharIndex == titleText.length()) {
     if (!fadeOut) {
@@ -37,6 +34,11 @@ void drawStartScreen() {
     if (fadeAlpha <= 0 || fadeAlpha >= 255) {
       fadeOut = !fadeOut;
     }
+    boolean hover = isMouseOverStartButton();
+      fill(hover ? color(255, 255, 255) : color(255, 255, 255));
+      ellipse(width / 6*5, height / 6*5, 200, 100);
+       // ネオン文字で「スタート」を描画
+      Neon(width / 6*5, height / 6*5, 50, "スタート", color(0, 255, 255));
   }
 }
 
@@ -90,7 +92,7 @@ void Neon(float x, float y, float size, String string, color mainColor) {
   textAlign(CENTER, CENTER);
 
   wobbleTime += 0.1;
-  float wobbleAmount = size * 0.035;
+  float wobbleAmount = size * 0.03;
 
   // 残像エフェクトの更新
   for (int i = previousX.length - 1; i > 0; i--) {

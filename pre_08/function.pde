@@ -1,44 +1,82 @@
 // スタート画面の描画
+// 旭日旗効果を描画
+void drawRisingSunEffect() {
+  pushMatrix();
+  translate(0, height ); // 左上に移動
+  drawRotatingLines(rotationAngleLeft);
+  popMatrix();
+
+  pushMatrix();
+  translate(width, height ); // 右上に移動
+  drawRotatingLines(rotationAngleRight);
+  popMatrix();
+
+  rotationAngleLeft += 0.02; // 回転速度を設定
+  rotationAngleRight -= 0.02; // 回転速度を設定
+}
+
+// 回転する光線を描画
+void drawRotatingLines(float angle) {
+  noStroke();
+  for (int i = 0; i < 16; i++) {
+    float theta = angle + radians(i * 360 / 16);
+    float x1 = cos(theta) * 300;
+    float y1 = sin(theta) * 300;
+    float x2 = cos(theta + radians(10)) * 300;
+    float y2 = sin(theta + radians(10)) * 300;
+
+    fill(color(random(255), random(255), random(255), 150));
+    beginShape();
+    vertex(0, 0);
+    vertex(x1*2, y1*2);
+    vertex(x2*2, y2*2);
+    endShape(CLOSE);
+  }
+}
+
 void drawStartScreen() {
-  if (millis() - displayTimer > 400 && currentCharIndex < titleText.length()) {
+  if (millis() - displayTimer > 200 && currentCharIndex < titleText.length()) {
     currentCharIndex++;
     displayTimer = millis();
   }
   // 「QUIZ」の文字を左下から左上に配置してネオンエフェクト適用
-  for (int i = 0; i < 4 && i < currentCharIndex; i++) {
+  for (int i = 0; i < 5 && i < currentCharIndex; i++) {
     char c = titleText.charAt(i);
-    float x = width / 9 + i * 100;
+    float x = width / 9 + (i-1) * 100;
     float y =  200 ;
     Neon(x, y, 90, String.valueOf(c), color(random(255), random(255), random(255)));
+    if (currentCharIndex >= 3) {
+    }
   }
+
 
   // 「GAME」の文字を右上から右下に配置してネオンエフェクト適用
-  for (int i = 4; i < 8 && i < currentCharIndex; i++) {
+  for (int i = 5; i < 9 && i < currentCharIndex; i++) {
     char c = titleText.charAt(i);
-    float x = width/ 9 * 4 + i * 100;
+    float x = width/ 9 * 4 + (i-1) * 100;
     float y = 200 ;
     Neon(x, y, 90, String.valueOf(c), color((i*255), random(255), random(255)));
+    if (currentCharIndex == titleText.length()-1) {
+    }
   }
-  
-
- 
-   // 全文字が表示されたら画像をフェード表示
+  // 全文字が表示されたら画像をフェード表示
   if (currentCharIndex == titleText.length()) {
     if (!fadeOut) {
       if (fadeAlpha < 255) fadeAlpha += 15;
     } else {
       if (fadeAlpha > 0) fadeAlpha -= 15;
     }
+    drawRisingSunEffect(); // 旭日旗効果を描画
     tint(255, fadeAlpha);
     image(NeonBulb, 0, 0, width, height / 6 * 5);
     if (fadeAlpha <= 0 || fadeAlpha >= 255) {
       fadeOut = !fadeOut;
     }
     boolean hover = isMouseOverStartButton();
-      fill(hover ? color(255, 255, 255) : color(255, 255, 255));
-      ellipse(width / 6*5, height / 6*5, 200, 100);
-       // ネオン文字で「スタート」を描画
-      Neon(width / 6*5, height / 6*5, 50, "スタート", color(0, 255, 255));
+    fill(hover ? color(0, 255, 0) : color(255, 255, 255));
+    ellipse(width / 2, height / 6*5+50, 200, 100);
+    // ネオン文字で「スタート」を描画
+    Neon(width / 2, height / 6*5+50, 50, "スタート", color(random(255), random(255), random(255)));
   }
 }
 
@@ -77,7 +115,7 @@ void mousePressed() {
 
 // スタートボタンのマウスオーバーチェック
 boolean isMouseOverStartButton() {
-  return dist(mouseX, mouseY, width / 6*5, height / 6*5) < 75;
+  return dist(mouseX, mouseY, width / 2, height / 6*5+50) < 75;
 }
 
 // ゲームスタートボタンのマウスオーバーチェック
@@ -93,33 +131,13 @@ void Neon(float x, float y, float size, String string, color mainColor) {
 
   wobbleTime += 0.1;
   float wobbleAmount = size * 0.03;
-
-  // 残像エフェクトの更新
-  for (int i = previousX.length - 1; i > 0; i--) {
-    previousX[i] = previousX[i - 1];
-    previousY[i] = previousY[i - 1];
-  }
-
   float wobbleX = x + sin(wobbleTime * 0.5) * wobbleAmount;
   float wobbleY = y + cos(wobbleTime * 0.5) * wobbleAmount;
 
   previousX[0] = wobbleX;
   previousY[0] = wobbleY;
 
-  // 残像を描画
-  for (int i = 1; i < previousX.length; i++) {
-    float alfa = map(i, 1, previousX.length, 40, 10);
-    color shadowColor = color(red(mainColor), green(mainColor), blue(mainColor), alfa);
-
-    for (int blur = 1; blur <= 3; blur++) {
-      fill(shadowColor, alfa / blur);
-      textSize(size * (1 - blur * 0.05));
-      text(string, previousX[i] + blur, previousY[i] + blur);
-      text(string, previousX[i] - blur, previousY[i] - blur);
-    }
-  }
-
-  // メインの文字を描画
+  // メインの文字を描画g
   fill(mainColor, 230);
   text(string, wobbleX, wobbleY);
 

@@ -1,0 +1,49 @@
+PFont font; // 日本語フォント
+
+void setup() {
+  fullScreen();
+}
+
+void draw() {
+  background(255); // 背景色
+}
+
+
+void drawExplanationScreen() {
+  String setumei = ""
+  
+  
+  
+}
+void Neon(float x, float y, float size, String string, color mainColor) {
+  PFont japaneseFont = createFont("Dialog.bold", size); // 日本語対応フォント
+  textFont(japaneseFont);
+  textAlign(CENTER, CENTER);
+
+  wobbleTime += 0.1;
+  float wobbleAmount = size * 0.035;
+
+  // 残像エフェクトの更新
+  for (int i = previousX.length - 1; i > 0; i--) {
+    previousX[i] = previousX[i - 1];
+    previousY[i] = previousY[i - 1];
+  }
+
+  float wobbleX = x + sin(wobbleTime * 0.5) * wobbleAmount;
+  float wobbleY = y + cos(wobbleTime * 0.5) * wobbleAmount;
+
+  previousX[0] = wobbleX;
+  previousY[0] = wobbleY;
+
+  // 残像を描画
+  for (int i = 1; i < previousX.length; i++) {
+    float alfa = map(i, 1, previousX.length, 40, 10);
+    color shadowColor = color(red(mainColor), green(mainColor), blue(mainColor), alfa);
+
+    for (int blur = 1; blur <= 3; blur++) {
+      fill(shadowColor, alfa / blur);
+      textSize(size * (1 - blur * 0.05));
+      text(string, previousX[i] + blur, previousY[i] + blur);
+      text(string, previousX[i] - blur, previousY[i] - blur);
+    }
+  }

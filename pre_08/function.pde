@@ -1,4 +1,8 @@
 // スタート画面の描画
+// スタートボタンのマウスオーバーチェック
+boolean isMouseOverStartButton() {
+  return dist(mouseX, mouseY, width / 2, height / 6*5+50) < 75;
+}
 // 旭日旗効果を描画
 void drawRisingSunEffect() {
   pushMatrix();
@@ -35,7 +39,7 @@ void drawRotatingLines(float angle) {
 }
 
 void drawStartScreen() {
-  if (millis() - displayTimer > 200 && currentCharIndex < titleText.length()) {
+  if (millis() - displayTimer > 100 && currentCharIndex < titleText.length()) {
     currentCharIndex++;
     displayTimer = millis();
   }
@@ -45,18 +49,17 @@ void drawStartScreen() {
     float x = width / 9 + (i-1) * 100;
     float y =  200 ;
     Neon(x, y, 90, String.valueOf(c), color(random(255), random(255), random(255)));
-    if (currentCharIndex >= 3) {
-    }
   }
 
 
   // 「GAME」の文字を右上から右下に配置してネオンエフェクト適用
   for (int i = 5; i < 9 && i < currentCharIndex; i++) {
     char c = titleText.charAt(i);
-    float x = width/ 9 * 4 + (i-1) * 100;
+    float x = width/ 9 * 4 + (i-1) * 110;
     float y = 200 ;
     Neon(x, y, 90, String.valueOf(c), color((i*255), random(255), random(255)));
-    if (currentCharIndex == titleText.length()-1) {
+    if (currentCharIndex == titleText.length()-3) {
+      playerBGM1.play();
     }
   }
   // 全文字が表示されたら画像をフェード表示
@@ -107,16 +110,18 @@ void drawGameScreen() {
 // マウスクリックの処理
 void mousePressed() {
   if (gmn == 0 && isMouseOverStartButton()) {
+    player.play();
+    player.rewind();
     gmn = 1; // 説明画面へ移動
   } else if (gmn == 1 && isMouseOverGameStartButton()) {
+      player.play();
+    player.rewind();
+    playerBGM1.close();
     gmn = 2; // ゲーム画面へ移動
   }
 }
 
-// スタートボタンのマウスオーバーチェック
-boolean isMouseOverStartButton() {
-  return dist(mouseX, mouseY, width / 2, height / 6*5+50) < 75;
-}
+
 
 // ゲームスタートボタンのマウスオーバーチェック
 boolean isMouseOverGameStartButton() {

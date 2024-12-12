@@ -9,6 +9,9 @@ Minim minim;
 AudioPlayer player,playerBGM1;
 // グローバル変数
 PImage NeonBulb;
+PImage light_normal;
+PImage light_shine;
+PImage light_break;
 PFont font; // 日本語フォント
 String titleText = "FLASHQUIZ"; // タイトル文字列
 int currentCharIndex = 0; // 現在表示する文字インデックス
@@ -28,6 +31,9 @@ void setup() {
   playerBGM1 = minim.loadFile("BGM5.mp3");
   fullScreen();
   NeonBulb = loadImage("ネオンクイズ.PNG");
+  light_normal = loadImage("電球　普通.PNG");
+  light_shine = loadImage("電球　点灯.PNG");
+  light_break = loadImage("電球　破損.PNG");
   font = createFont("Dialog.bold", 50);
   textFont(font);
   colorMode(RGB, 255);
@@ -40,7 +46,7 @@ void draw() {
   if (gmn == 0) {
     drawStartScreen(); // スタート画面を描画
   } else if (gmn == 1) {
-    drawExplanationScreen(); // 説明画面を描画
+    drawExplanationScreen_1(); // 説明画面を描画
   } else if (gmn == 2) {
     drawGameScreen(); // ゲーム画面を描画
   }

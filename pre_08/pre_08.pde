@@ -46,8 +46,12 @@ void draw() {
   if (gmn == 0) {
     drawStartScreen(); // スタート画面を描画
   } else if (gmn == 1) {
-    drawExplanationScreen_1(); // 説明画面を描画
+    drawExplanationScreen_1(); // 説明画面1枚目を描画
   } else if (gmn == 2) {
     drawGameScreen(); // ゲーム画面を描画
+  } else if (gmn == 3) {
+    drawExplanationScreen_2(); // 説明画面2枚目を描画
+  } else if (gmn == 4) {
+    drawExplanationScreen_3(); // 説明画面3枚目を描画
   }
 }

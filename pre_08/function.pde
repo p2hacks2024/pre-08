@@ -83,25 +83,28 @@ void drawStartScreen() {
 // 説明画面の描画
 void drawExplanationScreen_1() {
   String title = "ルール説明";
-  String page1 = "１/３";
-  String page2 = "２/３";
-  String page3 = "３/３";
-  tint(255,255,255,64);
+  drawRisingSunEffect();
+  tint(255,64);
   image(NeonBulb, 0, 0, width, height / 6 * 5);
-  Neon(width/2,100,150,title,color(0,255,0));
+  tint(255,255);
+  image(light_shine,width/2-(250+125),160,250,250);
+  image(light_normal,width/2-125,160,250,250);
+  image(light_normal,width/2+125,160,250,250);
+  Neon(width/2,100,150,title,color(random(255),255,random(255)));
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(60);
-  text("このゲームは反射神経、観察力をためすゲームです。\nまた、脳年齢を測定します。\n制限時間内に出題された問題の正しい答えを選んでください。\n出題される問題は全部で10問です。\n", width / 2, height / 2 - 50);
-  // ゲームスタートボタン
+  text("このゲームは反射神経、観察力をためすゲームです。\nまた、脳年齢を測定します。\n制限時間内に出題された問題の正しい答えを選んでください。\n出題される問題は全部で10問です。\n", width/2, height/2 + 60);
+  
   fill(0, 255, 0);
+  stroke(255,255,0);
   rect(width - 470, height - 300, 250, 120, 20);
+  rect(220,height - 300,250,120,20);
 
   fill(255);
-  textSize(50);
-  text(page1,width - 645,height - 490 + 250);
   textSize(30);
-  text("ゲームスタート", width - 345, height -490 + 250);
+  text("次へ", width - 345, height -490 + 250);
+  text("タイトル画面へ", 345,height-490+250);
 }
 
 // ゲーム画面の描画
@@ -117,8 +120,11 @@ void drawGameScreen() {
 void mousePressed() {
   if (gmn == 0 && isMouseOverStartButton()) {
     gmn = 1; // 説明画面へ移動
-  } else if (gmn == 1 && isMouseOverGameStartButton()) {
+  } else if (gmn == 1 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)) {
     gmn = 2; // ゲーム画面へ移動
+  }
+  else if(gmn == 1 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+    gmn = 0;
   }
 }
 

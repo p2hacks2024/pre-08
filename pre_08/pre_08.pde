@@ -1,5 +1,8 @@
 // グローバル変数
 PImage NeonBulb;
+PImage light_normal;
+PImage light_shine;
+PImage light_break;
 PFont font; // 日本語フォント
 String titleText = "FLASHQUIZ"; // タイトル文字列
 int currentCharIndex = 0; // 現在表示する文字インデックス
@@ -16,6 +19,9 @@ float rotationAngleRight = 0; // 右上光線の回転角度;
 void setup() {
   fullScreen();
   NeonBulb = loadImage("ネオンクイズ.PNG");
+  light_normal = loadImage("電球　普通.PNG");
+  light_shine = loadImage("電球　点灯.PNG");
+  light_break = loadImage("電球　破損.PNG");
   font = createFont("Dialog.bold", 50);
   textFont(font);
   colorMode(RGB, 255);

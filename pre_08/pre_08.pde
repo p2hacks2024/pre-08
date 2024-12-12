@@ -1,3 +1,12 @@
+import ddf.minim.spi.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.ugens.*;
+import ddf.minim.effects.*;
+
+Minim minim;
+AudioPlayer player,playerBGM1;
 // グローバル変数
 PImage NeonBulb;
 PImage light_normal;
@@ -17,6 +26,9 @@ float rotationAngleLeft = 0; // 左上光線の回転角度
 float rotationAngleRight = 0; // 右上光線の回転角度;
 
 void setup() {
+  minim = new Minim(this);
+  player = minim.loadFile("OnWord.mp3");//文字の効果音を読み込む
+  playerBGM1 = minim.loadFile("BGM5.mp3");
   fullScreen();
   NeonBulb = loadImage("ネオンクイズ.PNG");
   light_normal = loadImage("電球　普通.PNG");

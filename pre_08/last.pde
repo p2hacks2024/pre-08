@@ -67,6 +67,7 @@ void displayCongratulation() {
   textAlign(CENTER, CENTER);
   textSize(100);
   text("Congratulation!", width / 2, height / 2);
+  Fireworks();
 }
 
 // 脳年齢を計算して表示

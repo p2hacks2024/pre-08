@@ -1,5 +1,6 @@
 void drawStartScreen() {
-  if (millis() - displayTimer > 100 && currentCharIndex < titleText.length()) {
+   playerBGM1.play();
+  if (millis() - displayTimer > 1000 && currentCharIndex < titleText.length()) {
     currentCharIndex++;
     displayTimer = millis();
   }
@@ -19,7 +20,6 @@ void drawStartScreen() {
     float y = 200 ;
     Neon(x, y, 90, String.valueOf(c), color((i*255), random(255), random(255)));
     if (currentCharIndex == titleText.length()-3) {
-      playerBGM1.play();
     }
   }
   // 全文字が表示されたら画像をフェード表示

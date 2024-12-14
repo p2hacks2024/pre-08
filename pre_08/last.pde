@@ -93,6 +93,8 @@ void handleGameProgress() {
 
 // 最終ステージの処理
 void displayFinalStage() {
+  LastBGM.close();
+  effectError.play();
   countdownFrameCounter++;
 
   if (countdownFrameCounter >= 20) {

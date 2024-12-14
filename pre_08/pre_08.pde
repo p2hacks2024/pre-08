@@ -90,7 +90,7 @@ void setup() {
   effect1 = minim.loadFile("電球割れ.mp3");
   effect2 = minim.loadFile("正解音.mp3");
   fullScreen();
-  NeonBulb = loadImage("ネオンクイズ.png");
+  NeonBulb = loadImage("ネオンクイズ.PNG");
   light_normal = loadImage("電球　普通.PNG");
   light_shine = loadImage("電球　点灯.PNG");
   light_break = loadImage("電球　破損.PNG");

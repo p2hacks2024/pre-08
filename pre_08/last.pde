@@ -11,11 +11,13 @@ int frameCounter = 0; // フレームカウンター
 boolean flash = false; // 点滅エフェクト用フラグ
 boolean showCongratulation = false; // おめでとうメッセージ表示フラグ
 boolean showFinalMessage = false; // 最終メッセージ表示フラグ
+boolean startDisappointingTimer = false;
 
 // 点滅・カウントダウン管理用変数
 int flashCounter = 0; // 点滅カウンター
 int countdownTimer = 4; // カウントダウンタイマー
 int countdownFrameCounter = 0; // カウントダウンフレームカウンター
+int disappointingStartTime = 0;
 
 // レインボーカラーエフェクト用変数
 int rainbowCounter = 0;
@@ -58,6 +60,17 @@ void handleFlashEffect() {
   }
 }
 
+// 残念メッセージの表示
+void displayDisappointing(){
+  background(0);
+  rainbowCounter++;
+  fill(color((rainbowCounter * 10) % 255, random(255), random(255)));
+  textAlign(CENTER, CENTER);
+  textSize(100);
+  text("Disapponting...", width / 2, height / 2);
+  Lightnings();
+}
+
 // おめでとうメッセージの表示
 void displayCongratulation() {
   BGMfinal.play();
@@ -67,6 +80,7 @@ void displayCongratulation() {
   textAlign(CENTER, CENTER);
   textSize(100);
   text("Congratulation!", width / 2, height / 2);
+  Fireworks();
 }
 
 // 脳年齢を計算して表示
@@ -90,6 +104,15 @@ void handleGameProgress() {
   if (showFinalMessage && inputNumber == 10) {
     displayFinalStage();
   }
+  if(showFinalMessage && inputNumber <= 9){
+    if(!startDisappointingTimer){
+      startDisappointingTimer = true;
+      disappointingStartTime = millis();
+    }
+    if(millis() - disappointingStartTime >= 2000){
+      displayDisappointing();
+    }
+  }  
 }
 
 // 最終ステージの処理

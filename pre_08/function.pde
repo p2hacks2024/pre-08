@@ -97,7 +97,7 @@ void drawExplanationScreen_1() {
   text(title,width/2+300,80);
   fill(18,67,34);
   text(title,width/2+600,60);
-  //fluentString(100,40,Q,color(255,255,0));
+  
   tint(255,64);
   image(NeonBulb, 0, 0, width, height / 6 * 5);
   tint(255,255);
@@ -112,13 +112,13 @@ void drawExplanationScreen_1() {
   
   fill(0, 255, 0);
   stroke(255,255,0);
-  rect(width - 470, height - 300, 250, 120, 20);
-  rect(220,height - 300,250,120,20);
+  rect(width - 380, height - 300, 250, 120, 20);
+  rect(130,height - 300,250,120,20);
 
   fill(255);
   textSize(30);
-  text("次へ", width - 345, height -490 + 250);
-  text("タイトル画面へ", 345,height-490+250);
+  text("次へ", width - 255, height -490 + 250);
+  text("タイトル画面へ", 255,height-490+250);
 }
 
 // 説明画面2枚目の描画
@@ -145,19 +145,20 @@ void drawExplanationScreen_2(){
   
   
   stroke(255);
-  rect(width/2-(960/2), height/2-200, 960, 540);
+  rect(width/2-(960/2), height/2-150, 960, 300);
+  image(example_1,width/2-(960/2), height/2-150);
   fill(0, 255, 0);
   stroke(255,255,0);
-  rect(width - 470, height - 300, 250, 120, 20);
-  rect(220,height - 300,250,120,20);
+  rect(width - 380, height - 300, 250, 120, 20);
+  rect(130,height - 300,250,120,20);
 
   fill(255);
   textSize(30);
-  text("次へ", width - 345, height -490 + 250);
-  text("前へ", 345,height-490+250);
+  text("次へ", width - 255, height -490 + 250);
+  text("前へ", 255,height-490+250);
   textSize(40);
   text("例：",width/2-(960/2)-50, height/2-200);
-  text("まず最初に４つの単語が１秒ずつ出てきます。\n思ったよりも早いので集中して見てね。", width/2, height-210);
+  text("まず最初に４つの単語が１秒ずつ出てきます。\n思ったよりも早いので集中して見てね。", width/2, height/2+210);
   
 }
 
@@ -186,20 +187,25 @@ void drawExplanationScreen_3(){
   
   stroke(255);
   rect(width/2-(960/2), height/2-200, 960, 540);
+  image(example_2,width/2-(960/2), height/2-200, 960, 540);
+  
   fill(255, 0, 0);
   stroke(255,255,0);
-  rect(width - 470, height - 300, 250, 120, 20);
+  rect(width - 380, height - 300, 250, 120, 20);
   fill(0, 255, 0);
   stroke(255,255,0);
-  rect(220,height - 300,250,120,20);
+  rect(130,height - 300,250,120,20);
 
   fill(255);
   textSize(30);
-  text("開始！", width - 345, height -490 + 250);
-  text("前へ", 345,height-490+250);
+  text("開始！", width - 255, height -490 + 250);
+  text("前へ", 255,height-490+250);
   textSize(40);
   text("例：",width/2-(960/2)-50, height/2-200);
-  text("次にその４つの単語に関する問題が出題されます。\n４つの選択肢の中から正しい答えを選んでください。\nこれを１０回繰り返します。\nうまく記憶をフラッシュバックさせよう。", width/2, height-170);
+  text("制限時間",width/2+420, height/2-270);
+  stroke(255);
+  line(width/2+230, height/2-143, width/2+350, height/2-240);
+  text("次にその４つの単語に関する問題が出題されます。\n４つの選択肢の中から正しい答えを選んでください。\nこれを１０回繰り返します。\n最後に結果が表示されます。", width/2, height-155);
   
 }
 
@@ -398,30 +404,30 @@ void mousePressed() {
     player.play();
     player.rewind();
     gmn = 1; // 説明画面へ移動
-  } else if (gmn == 1 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)) {
+  } else if (gmn == 1 && Overlap(mouseX,mouseY,0,0,width - 380, height - 300, 250, 120)) {
     player.play();
     player.rewind();
-    gmn = 3; // 説明画面1枚目へ移動
-  }else if(gmn == 1 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+    gmn = 3; // 説明画面2枚目へ移動
+  }else if(gmn == 1 && Overlap(mouseX,mouseY,0,0,130,height - 300,250,120)){
     gmn = 0; // タイトル画面に戻る
     player.play();
     player.rewind();
-  }else if(gmn == 3 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)){
+  }else if(gmn == 3 && Overlap(mouseX,mouseY,0,0,width - 380, height - 300, 250, 120)){
     gmn = 4; // 説明画面3枚目へ移動 
     player.play();
     player.rewind();
-  }else if(gmn == 3 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+  }else if(gmn == 3 && Overlap(mouseX,mouseY,0,0,130,height - 300,250,120)){
     gmn = 1; // 説明画面1枚目に戻る
     player.play();
     player.rewind();
-  }else if(gmn == 4 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)){
+  }else if(gmn == 4 && Overlap(mouseX,mouseY,0,0,width - 380, height - 300, 250, 120)){
     int currentTime = millis();
     startTime = currentTime;
     gmn = 2; // ゲーム画面へ移動
     player.play();
     player.rewind();
     playerBGM1.close();
-  }else if(gmn == 4 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+  }else if(gmn == 4 && Overlap(mouseX,mouseY,0,0,130,height - 300,250,120)){
     gmn = 3; // 説明画面2枚目に戻る
     player.play();
     player.rewind();

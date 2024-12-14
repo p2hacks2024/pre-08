@@ -12,6 +12,8 @@ PImage NeonBulb;
 PImage light_normal;
 PImage light_shine;
 PImage light_break;
+PImage example_1;
+PImage example_2;
 PFont font; // 日本語フォント
 String titleText = "FLASHQUIZ"; // タイトル文字列
 int currentCharIndex = 0; // 現在表示する文字インデックス
@@ -83,10 +85,12 @@ void setup() {
   player = minim.loadFile("OnWord.mp3");//文字の効果音を読み込む
   playerBGM1 = minim.loadFile("BGM5.mp3");
   fullScreen();
-  NeonBulb = loadImage("ネオンクイズ.png");
+  NeonBulb = loadImage("ネオンクイズ.PNG");
   light_normal = loadImage("電球　普通.PNG");
   light_shine = loadImage("電球　点灯.PNG");
   light_break = loadImage("電球　破損.PNG");
+  example_1 = loadImage("1234.PNG");
+  example_2 = loadImage("例題.PNG");
   font = createFont("Dialog.bold", 50);
   textFont(font);
   colorMode(RGB, 255);

@@ -60,6 +60,7 @@ void handleFlashEffect() {
 
 // おめでとうメッセージの表示
 void displayCongratulation() {
+  BGMfinal.play();
   background(0);
   rainbowCounter++;
   fill(color((rainbowCounter * 10) % 255, random(255), random(255)));

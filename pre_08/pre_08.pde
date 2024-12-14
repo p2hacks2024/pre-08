@@ -6,7 +6,7 @@ import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
 Minim minim;
-AudioPlayer player, playerBGM1, GameBGM,LastBGM, effect1, effect2, effect3,effectError;
+AudioPlayer player, playerBGM1, GameBGM,LastBGM,BGMfinal, effect1, effect2, effect3,effectError;
 // グローバル変数
 PImage NeonBulb;
 PImage light_normal;
@@ -87,6 +87,7 @@ void setup() {
   playerBGM1 = minim.loadFile("BGM5.mp3");
   GameBGM = minim.loadFile("BGM7.mp3");
   LastBGM = minim.loadFile("BGMlast.mp3");
+  BGMfinal = minim.loadFile("BGMfinal.mp3");
   effect1 = minim.loadFile("電球割れ.mp3");
   effect2 = minim.loadFile("正解音.mp3");
   effect3 = minim.loadFile("出題音.mp3");

@@ -14,8 +14,6 @@ void drawGameScreen() {
       startTime = currentTime;
     }
   } else if (state == 2) {
-    effect1.rewind();
-    effect2.rewind();
     // 各要素を1秒ずつ表示
     if (currentTime - startTime < 750) {
       textSize(200);
@@ -28,10 +26,12 @@ void drawGameScreen() {
       if (elementIndex >= elements[currentQuestion].length) {
         state = 3; // 表示終了
         startTime = currentTime; // 次の状態に移るために時間をリセット
+        // 元のコードに移動
+        effect1.rewind();
+        effect2.rewind();
       }
     }
   } else if (state == 3) {
-    // 元のコードに移動
     background(0); // 背景は黒
 
     // 問題部分
@@ -57,7 +57,7 @@ void drawGameScreen() {
     float sideImageXRight = width - sideImageWidth; // 左右対称にするために右側の位置を調整
     if (gameEnded) {
       if (clickedAnswer == correctAnswers[currentQuestion]) {
-        effect2.play();
+        //effect2.play();
         image(light_shine, sideImageXLeft, height * 0.1, sideImageWidth, sideImageHeight); // 正解時の画像
         image(light_shine, sideImageXRight, height * 0.1, sideImageWidth, sideImageHeight); // 正解時の画像
       } else {
@@ -127,6 +127,7 @@ void drawGameScreen() {
     for (int i = 0; i < 10; i++) {
       if (i == currentQuestion && gameEnded) {
         if (clickedAnswer == correctAnswers[currentQuestion]) {
+          effect2.play();
           image(light_shine, width * 0.1 * i, height * 0.8, width * 0.1, imageHeight); // 正解時の画像
         } else {
           image(light_break, width * 0.1 * i, height * 0.8, width * 0.1, imageHeight); // 不正解時の画像

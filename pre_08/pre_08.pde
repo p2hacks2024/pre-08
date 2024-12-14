@@ -93,7 +93,7 @@ void setup() {
   effect1 = minim.loadFile("電球割れ.mp3");
   effect2 = minim.loadFile("正解音.mp3");
   effect3 = minim.loadFile("出題音.mp3");
-  effectError = minim.loadFile("effectError.mp3");
+  effectError = minim.loadFile("ゲーム・レース開始.mp3");
   fullScreen();
   NeonBulb = loadImage("ネオンクイズ.png");
   light_normal = loadImage("電球　普通.PNG");

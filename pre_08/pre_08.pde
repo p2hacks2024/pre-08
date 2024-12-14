@@ -6,7 +6,7 @@ import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
 Minim minim;
-AudioPlayer player,playerBGM1;
+AudioPlayer player,playerBGM1,GameBGM,effect1,effect2;
 // グローバル変数
 PImage NeonBulb;
 PImage light_normal;
@@ -32,7 +32,7 @@ int state = 1;
 int startTime;
 int elementIndex = 0;
 boolean gameEnded = false;
-int ans = 0; int total = 1;
+int ans = 0; int total = 1,effect = 0;
 
 int[] correctAnswers = {2, 1, 2, 1, 2, 3, 3, 0, 2, 1}; // 各問題の正解のインデックス
 boolean[] questionAnswered = new boolean[10];
@@ -83,6 +83,9 @@ void setup() {
   minim = new Minim(this);
   player = minim.loadFile("OnWord.mp3");//文字の効果音を読み込む
   playerBGM1 = minim.loadFile("BGM5.mp3");
+  GameBGM = minim.loadFile("BGM7.mp3");
+  effect1 = minim.loadFile("電球割れ.mp3");
+  effect2 = minim.loadFile("正解音.mp3");
   fullScreen();
   NeonBulb = loadImage("ネオンクイズ.png");
   light_normal = loadImage("電球　普通.PNG");
@@ -103,6 +106,7 @@ void draw() {
     background(0); // 背景色
     drawExplanationScreen_1(); // 説明画面1枚目を描画
   } else if (gmn == 2) {
+    GameBGM.play();
      background(0); // 背景色
     drawGameScreen(); // ゲーム画面を描画
   } else if (gmn == 3) {

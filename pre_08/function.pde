@@ -72,11 +72,9 @@ void mousePressed() {
     player.rewind();
   } else if (gmn == 2) {
     if (gameEnded) return;
-
     float optionWidth = width * 0.35;
     float optionHeight = height * 0.1;
     float columnSpacing = width * 0.05;
-    float rowSpacing = height * 0.05;
     float centerX = width * 0.5;
     float leftColumnX = centerX - optionWidth - columnSpacing / 2;
     float rightColumnX = centerX + columnSpacing / 2;
@@ -88,7 +86,6 @@ void mousePressed() {
       float optionY = (i < 2) ? firstRowY : secondRowY;
 
       if (mouseX > optionX && mouseX < optionX + optionWidth && mouseY > optionY && mouseY < optionY + optionHeight) {
-       // effect2.play();
         clickedAnswer = i;
         gameEnded = true;
         questionAnswered[currentQuestion] = true;
@@ -96,8 +93,6 @@ void mousePressed() {
         if (questionResults[currentQuestion]) {
           ans++;
           println(ans);
-        }else{
-          //effect1.play();
         }
         break;
       }

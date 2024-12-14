@@ -1,4 +1,3 @@
-
 import ddf.minim.spi.*;
 import ddf.minim.signals.*;
 import ddf.minim.*;
@@ -7,7 +6,7 @@ import ddf.minim.ugens.*;
 import ddf.minim.effects.*;
 
 Minim minim;
-AudioPlayer player,playerBGM1,GameBGM,effect1,effect2;
+AudioPlayer player, playerBGM1, GameBGM,LastBGM, effect1, effect2, effect3,effectError;
 // グローバル変数
 PImage NeonBulb;
 PImage light_normal;
@@ -35,13 +34,13 @@ int state = 1;
 int startTime;
 int elementIndex = 0;
 boolean gameEnded = false;
-int ans = 0; int total = 1,effect = 0;
+int ans = 0;
+int total = 1, effect = 0;
 
-int[] correctAnswers = {2, 1, 2, 1, 2, 3, 3, 0, 2, 1}; // 各問題の正解のインデックス
+int[] correctAnswers = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2}; // 各問題の正解のインデックス
 boolean[] questionAnswered = new boolean[10];
 boolean[] questionResults = new boolean[10];
 color[] optionBorderColors = {color(0, 0, 255), color(0, 255, 0), color(255, 0, 0), color(255, 255, 0)}; // 四角の枠線色
-
 // 問題文データ
 String[] questions = {
   "全部の脚は何本？",
@@ -87,10 +86,13 @@ void setup() {
   player = minim.loadFile("OnWord.mp3");//文字の効果音を読み込む
   playerBGM1 = minim.loadFile("BGM5.mp3");
   GameBGM = minim.loadFile("BGM7.mp3");
+  LastBGM = minim.loadFile("BGMlast.mp3");
   effect1 = minim.loadFile("電球割れ.mp3");
   effect2 = minim.loadFile("正解音.mp3");
+  effect3 = minim.loadFile("出題音.mp3");
+  effectError = minim.loadFile("effectError.mp3");
   fullScreen();
-  NeonBulb = loadImage("ネオンクイズ.PNG");
+  NeonBulb = loadImage("ネオンクイズ.png");
   light_normal = loadImage("電球　普通.PNG");
   light_shine = loadImage("電球　点灯.PNG");
   light_break = loadImage("電球　破損.PNG");
@@ -112,7 +114,8 @@ void draw() {
     drawExplanationScreen_1(); // 説明画面1枚目を描画
   } else if (gmn == 2) {
     GameBGM.play();
-     background(0); // 背景色
+    GameBGM.setGain(-10.0);
+    background(0); // 背景色
     drawGameScreen(); // ゲーム画面を描画
   } else if (gmn == 3) {
     background(0); // 背景色
@@ -120,7 +123,9 @@ void draw() {
   } else if (gmn == 4) {
     background(0); // 背景色
     drawExplanationScreen_3(); // 説明画面3枚目を描画
-  }else if(gmn == 5){
+  } else if (gmn == 5) {
+    GameBGM.close();
+    LastBGM.play();
     last();
   }
 }

@@ -88,119 +88,117 @@ void drawExplanationScreen_1() {
   String title = "ルール説明";
   int lightsize = 240;
   drawRisingSunEffect();
-  fill(17,67,72);
+  fill(17, 67, 72);
   textSize(150);
-  text(title,width/2-300,80);
-  fill(67,18,62);
-  text(title,width/2-600,60);
-  fill(67,65,18);
-  text(title,width/2+300,80);
-  fill(18,67,34);
-  text(title,width/2+600,60);
+  text(title, width/2-300, 80);
+  fill(67, 18, 62);
+  text(title, width/2-600, 60);
+  fill(67, 65, 18);
+  text(title, width/2+300, 80);
+  fill(18, 67, 34);
+  text(title, width/2+600, 60);
   //fluentString(100,40,Q,color(255,255,0));
-  tint(255,64);
+  tint(255, 64);
   image(NeonBulb, 0, 0, width, height / 6 * 5);
-  tint(255,255);
-  image(light_shine,width/2-(lightsize+(lightsize/2)),160,lightsize,lightsize);
-  image(light_normal,width/2-(lightsize/2),160,lightsize,lightsize);
-  image(light_normal,width/2+(lightsize/2),160,lightsize,lightsize);
-  Neon(width/2,100,150,title,color(random(255),255,random(255)));
+  tint(255, 255);
+  image(light_shine, width/2-(lightsize+(lightsize/2)), 160, lightsize, lightsize);
+  image(light_normal, width/2-(lightsize/2), 160, lightsize, lightsize);
+  image(light_normal, width/2+(lightsize/2), 160, lightsize, lightsize);
+  Neon(width/2, 100, 150, title, color(random(255), 255, random(255)));
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(60);
   text("このゲームは反射神経、観察力をためすゲームです。\nまた、脳年齢を測定します。\n制限時間内に出題された問題の正しい答えを選んでください。\n出題される問題は全部で10問です。\n", width/2, height/2 + 60);
-  
+
   fill(0, 255, 0);
-  stroke(255,255,0);
+  stroke(255, 255, 0);
   rect(width - 470, height - 300, 250, 120, 20);
-  rect(220,height - 300,250,120,20);
+  rect(220, height - 300, 250, 120, 20);
 
   fill(255);
   textSize(30);
   text("次へ", width - 345, height -490 + 250);
-  text("タイトル画面へ", 345,height-490+250);
+  text("タイトル画面へ", 345, height-490+250);
 }
 
 // 説明画面2枚目の描画
-void drawExplanationScreen_2(){
+void drawExplanationScreen_2() {
   String title2 = "ルール説明";
   int lightsize = 240;
   drawRisingSunEffect();
-  fill(17,67,72);
+  fill(17, 67, 72);
   textSize(150);
-  text(title2,width/2-300,80);
-  fill(67,18,62);
-  text(title2,width/2-600,60);
-  fill(67,65,18);
-  text(title2,width/2+300,80);
-  fill(18,67,34);
-  text(title2,width/2+600,60);
-  tint(255,64);
+  text(title2, width/2-300, 80);
+  fill(67, 18, 62);
+  text(title2, width/2-600, 60);
+  fill(67, 65, 18);
+  text(title2, width/2+300, 80);
+  fill(18, 67, 34);
+  text(title2, width/2+600, 60);
+  tint(255, 64);
   image(NeonBulb, 0, 0, width, height / 6 * 5);
-  tint(255,255);
-  image(light_shine,width/2-(lightsize+(lightsize/2)),160,lightsize,lightsize);
-  image(light_shine,width/2-(lightsize/2),160,lightsize,lightsize);
-  image(light_normal,width/2+(lightsize/2),160,lightsize,lightsize);
-  Neon(width/2,100,150,title2,color(random(255),255,random(255)));
-  
-  
+  tint(255, 255);
+  image(light_shine, width/2-(lightsize+(lightsize/2)), 160, lightsize, lightsize);
+  image(light_shine, width/2-(lightsize/2), 160, lightsize, lightsize);
+  image(light_normal, width/2+(lightsize/2), 160, lightsize, lightsize);
+  Neon(width/2, 100, 150, title2, color(random(255), 255, random(255)));
+
+
   stroke(255);
   rect(width/2-(960/2), height/2-200, 960, 540);
   fill(0, 255, 0);
-  stroke(255,255,0);
+  stroke(255, 255, 0);
   rect(width - 470, height - 300, 250, 120, 20);
-  rect(220,height - 300,250,120,20);
+  rect(220, height - 300, 250, 120, 20);
 
   fill(255);
   textSize(30);
   text("次へ", width - 345, height -490 + 250);
-  text("前へ", 345,height-490+250);
+  text("前へ", 345, height-490+250);
   textSize(40);
-  text("例：",width/2-(960/2)-50, height/2-200);
+  text("例：", width/2-(960/2)-50, height/2-200);
   text("まず最初に４つの単語が１秒ずつ出てきます。\n思ったよりも早いので集中して見てね。", width/2, height-210);
-  
 }
 
 // 説明画面３枚目の描画
-void drawExplanationScreen_3(){
+void drawExplanationScreen_3() {
   String title3 = "ルール説明";
   int lightsize = 240;
   drawRisingSunEffect();
-  fill(17,67,72);
+  fill(17, 67, 72);
   textSize(150);
-  text(title3,width/2-300,80);
-  fill(67,18,62);
-  text(title3,width/2-600,60);
-  fill(67,65,18);
-  text(title3,width/2+300,80);
-  fill(18,67,34);
-  text(title3,width/2+600,60);
-  tint(255,64);
+  text(title3, width/2-300, 80);
+  fill(67, 18, 62);
+  text(title3, width/2-600, 60);
+  fill(67, 65, 18);
+  text(title3, width/2+300, 80);
+  fill(18, 67, 34);
+  text(title3, width/2+600, 60);
+  tint(255, 64);
   image(NeonBulb, 0, 0, width, height / 6 * 5);
-  tint(255,255);
-  image(light_shine,width/2-(lightsize+(lightsize/2)),160,lightsize,lightsize);
-  image(light_shine,width/2-(lightsize/2),160,lightsize,lightsize);
-  image(light_shine,width/2+(lightsize/2),160,lightsize,lightsize);
-  Neon(width/2,100,150,title3,color(random(255),255,random(255)));
-  
-  
+  tint(255, 255);
+  image(light_shine, width/2-(lightsize+(lightsize/2)), 160, lightsize, lightsize);
+  image(light_shine, width/2-(lightsize/2), 160, lightsize, lightsize);
+  image(light_shine, width/2+(lightsize/2), 160, lightsize, lightsize);
+  Neon(width/2, 100, 150, title3, color(random(255), 255, random(255)));
+
+
   stroke(255);
   rect(width/2-(960/2), height/2-200, 960, 540);
   fill(255, 0, 0);
-  stroke(255,255,0);
+  stroke(255, 255, 0);
   rect(width - 470, height - 300, 250, 120, 20);
   fill(0, 255, 0);
-  stroke(255,255,0);
-  rect(220,height - 300,250,120,20);
+  stroke(255, 255, 0);
+  rect(220, height - 300, 250, 120, 20);
 
   fill(255);
   textSize(30);
   text("開始！", width - 345, height -490 + 250);
-  text("前へ", 345,height-490+250);
+  text("前へ", 345, height-490+250);
   textSize(40);
-  text("例：",width/2-(960/2)-50, height/2-200);
+  text("例：", width/2-(960/2)-50, height/2-200);
   text("次にその４つの単語に関する問題が出題されます。\n４つの選択肢の中から正しい答えを選んでください。\nこれを１０回繰り返します。\nうまく記憶をフラッシュバックさせよう。", width/2, height-170);
-  
 }
 
 void drawGameScreen() {
@@ -242,7 +240,7 @@ void drawGameScreen() {
     stroke(255);
     strokeWeight(4);
     rect(width * 0.2, height * 0.2, width * 0.6, height * 0.1, 10);
-    
+
     // 「〇」の表示　→第何問目か
     fill(255, 0, 255);
     textSize(64);
@@ -271,59 +269,59 @@ void drawGameScreen() {
       image(light_normal, sideImageXRight, height * 0.1, sideImageWidth, sideImageHeight); // 通常の画像
     }
 
-  // 選択肢部分（2列配置、中央揃え）
-  float optionWidth = width * 0.35;
-  float optionHeight = height * 0.1;
-  float columnSpacing = width * 0.05; // 列間の余白
-  float rowSpacing = height * 0.05;  // 行間の余白
-  float centerX = width * 0.5;
-  float leftColumnX = centerX - optionWidth - columnSpacing / 2;
-  float rightColumnX = centerX + columnSpacing / 2;
-  float firstRowY = height * 0.4;
-  float secondRowY = height * 0.55;
+    // 選択肢部分（2列配置、中央揃え）
+    float optionWidth = width * 0.35;
+    float optionHeight = height * 0.1;
+    float columnSpacing = width * 0.05; // 列間の余白
+    float rowSpacing = height * 0.05;  // 行間の余白
+    float centerX = width * 0.5;
+    float leftColumnX = centerX - optionWidth - columnSpacing / 2;
+    float rightColumnX = centerX + columnSpacing / 2;
+    float firstRowY = height * 0.4;
+    float secondRowY = height * 0.55;
 
-  for (int i = 0; i < options[currentQuestion].length; i++) {
-    float optionX = (i % 2 == 0) ? leftColumnX : rightColumnX;
-    float optionY = (i < 2) ? firstRowY : secondRowY;
+    for (int i = 0; i < options[currentQuestion].length; i++) {
+      float optionX = (i % 2 == 0) ? leftColumnX : rightColumnX;
+      float optionY = (i < 2) ? firstRowY : secondRowY;
 
-    // 四角形の描画
-    noFill(); // 塗りつぶしなし
-    if (!gameEnded) {
-      if (mouseX > optionX && mouseX < optionX + optionWidth && mouseY > optionY && mouseY < optionY + optionHeight) {
-        stroke(255);
+      // 四角形の描画
+      noFill(); // 塗りつぶしなし
+      if (!gameEnded) {
+        if (mouseX > optionX && mouseX < optionX + optionWidth && mouseY > optionY && mouseY < optionY + optionHeight) {
+          stroke(255);
+        } else {
+          stroke(optionBorderColors[i]);
+        }
       } else {
-        stroke(optionBorderColors[i]);
+        if (i == correctAnswers[currentQuestion]) {
+          stroke(255, 0, 0); // 正解の選択肢は赤
+        } else {
+          stroke(0, 0, 255); // 不正解の選択肢は青
+        }
       }
-    } else {
-      if (i == correctAnswers[currentQuestion]) {
-        stroke(255, 0, 0); // 正解の選択肢は赤
-      } else {
-        stroke(0, 0, 255); // 不正解の選択肢は青
+      strokeWeight(3);
+      rect(optionX, optionY, optionWidth, optionHeight, 10);
+
+      // テキスト描画
+      fill(255);
+      textSize(53);
+      text(options[currentQuestion][i], optionX + optionWidth / 2, optionY + optionHeight / 2);
+
+      // 〇と×の表示
+      if (gameEnded) {
+        if (i == correctAnswers[currentQuestion]) {
+          fill(255, 0, 0);
+          textSize(64);
+          text("〇", optionX + 40, optionY + optionHeight / 2);
+        } else {
+          fill(0, 0, 255);
+          textSize(64);
+          text("×", optionX + 40, optionY + optionHeight / 2);
+        }
       }
     }
-    strokeWeight(3);
-    rect(optionX, optionY, optionWidth, optionHeight, 10);
 
-    // テキスト描画
-    fill(255);
-    textSize(53);
-    text(options[currentQuestion][i], optionX + optionWidth / 2, optionY + optionHeight / 2);
-
-    // 〇と×の表示
-    if(gameEnded) {
-      if(i == correctAnswers[currentQuestion]) {
-        fill(255, 0, 0);
-        textSize(64);
-        text("〇", optionX + 40, optionY + optionHeight / 2);
-      } else {
-        fill(0, 0, 255);
-        textSize(64);
-        text("×", optionX + 40, optionY + optionHeight / 2);
-      }
-    }
-  }
-
-  // 画像の表示
+    // 画像の表示
     float imageHeight = height * 0.15;
     for (int i = 0; i < 10; i++) {
       if (i == currentQuestion && gameEnded) {
@@ -398,55 +396,59 @@ void mousePressed() {
     player.play();
     player.rewind();
     gmn = 1; // 説明画面へ移動
-  } else if (gmn == 1 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)) {
+  } else if (gmn == 1 && Overlap(mouseX, mouseY, 0, 0, width - 470, height - 300, 250, 120)) {
     player.play();
     player.rewind();
     gmn = 3; // 説明画面1枚目へ移動
-  }else if(gmn == 1 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+  } else if (gmn == 1 && Overlap(mouseX, mouseY, 0, 0, 220, height - 300, 250, 120)) {
     gmn = 0; // タイトル画面に戻る
     player.play();
     player.rewind();
-  }else if(gmn == 3 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)){
-    gmn = 4; // 説明画面3枚目へ移動 
+  } else if (gmn == 3 && Overlap(mouseX, mouseY, 0, 0, width - 470, height - 300, 250, 120)) {
+    gmn = 4; // 説明画面3枚目へ移動
     player.play();
     player.rewind();
-  }else if(gmn == 3 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+  } else if (gmn == 3 && Overlap(mouseX, mouseY, 0, 0, 220, height - 300, 250, 120)) {
     gmn = 1; // 説明画面1枚目に戻る
     player.play();
     player.rewind();
-  }else if(gmn == 4 && Overlap(mouseX,mouseY,0,0,width - 470, height - 300, 250, 120)){
+  } else if (gmn == 4 && Overlap(mouseX, mouseY, 0, 0, width - 470, height - 300, 250, 120)) {
     int currentTime = millis();
     startTime = currentTime;
     gmn = 2; // ゲーム画面へ移動
     player.play();
     player.rewind();
     playerBGM1.close();
-  }else if(gmn == 4 && Overlap(mouseX,mouseY,0,0,220,height - 300,250,120)){
+  } else if (gmn == 4 && Overlap(mouseX, mouseY, 0, 0, 220, height - 300, 250, 120)) {
     gmn = 3; // 説明画面2枚目に戻る
     player.play();
     player.rewind();
-  }else if(gmn == 2){
-      if (gameEnded) return;
+  } else if (gmn == 2) {
+    if (gameEnded) return;
 
-      float optionWidth = width * 0.35;
-      float optionHeight = height * 0.1;
-      float columnSpacing = width * 0.05;
-      float rowSpacing = height * 0.05;
-      float centerX = width * 0.5;
-      float leftColumnX = centerX - optionWidth - columnSpacing / 2;
-      float rightColumnX = centerX + columnSpacing / 2;
-      float firstRowY = height * 0.4;
-      float secondRowY = height * 0.55;
+    float optionWidth = width * 0.35;
+    float optionHeight = height * 0.1;
+    float columnSpacing = width * 0.05;
+    float rowSpacing = height * 0.05;
+    float centerX = width * 0.5;
+    float leftColumnX = centerX - optionWidth - columnSpacing / 2;
+    float rightColumnX = centerX + columnSpacing / 2;
+    float firstRowY = height * 0.4;
+    float secondRowY = height * 0.55;
 
-      for (int i = 0; i < options[currentQuestion].length; i++) {
-        float optionX = (i % 2 == 0) ? leftColumnX : rightColumnX;
-        float optionY = (i < 2) ? firstRowY : secondRowY;
+    for (int i = 0; i < options[currentQuestion].length; i++) {
+      float optionX = (i % 2 == 0) ? leftColumnX : rightColumnX;
+      float optionY = (i < 2) ? firstRowY : secondRowY;
 
       if (mouseX > optionX && mouseX < optionX + optionWidth && mouseY > optionY && mouseY < optionY + optionHeight) {
         clickedAnswer = i;
         gameEnded = true;
         questionAnswered[currentQuestion] = true;
         questionResults[currentQuestion] = (clickedAnswer == correctAnswers[currentQuestion]);
+        if(questionResults[currentQuestion]){
+          ans++;
+          println(ans);
+        }
         break;
       }
     }
@@ -455,7 +457,11 @@ void mousePressed() {
 
 // ゲーム画面のみ
 void keyPressed() {
-  if (gameEnded && key == ' ') {
+  if (gameEnded && key == ' '&& total >= 10) {
+     background(0); // 背景色
+     gmn = 5;
+  } else if (gameEnded && key == ' ') {
+    total++;
     gameEnded = false;
     clickedAnswer = -1;
     elementIndex = 0;
@@ -467,8 +473,6 @@ void keyPressed() {
     startTime = millis();
   }
 }
-
-
 
 // ゲームスタートボタンのマウスオーバーチェック
 boolean isMouseOverGameStartButton() {

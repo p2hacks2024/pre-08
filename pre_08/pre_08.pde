@@ -32,6 +32,7 @@ int state = 1;
 int startTime;
 int elementIndex = 0;
 boolean gameEnded = false;
+int ans = 0; int total = 1;
 
 int[] correctAnswers = {2, 1, 2, 1, 2, 3, 3, 0, 2, 1}; // 各問題の正解のインデックス
 boolean[] questionAnswered = new boolean[10];
@@ -92,19 +93,25 @@ void setup() {
   colorMode(RGB, 255);
   smooth();
   displayTimer = millis(); // タイマー初期化
+  background(0); // 背景色
 }
 void draw() {
-  background(0); // 背景色
-
   if (gmn == 0) {
+    background(0); // 背景色
     drawStartScreen(); // スタート画面を描画
   } else if (gmn == 1) {
+    background(0); // 背景色
     drawExplanationScreen_1(); // 説明画面1枚目を描画
   } else if (gmn == 2) {
+     background(0); // 背景色
     drawGameScreen(); // ゲーム画面を描画
   } else if (gmn == 3) {
+    background(0); // 背景色
     drawExplanationScreen_2(); // 説明画面2枚目を描画
   } else if (gmn == 4) {
+    background(0); // 背景色
     drawExplanationScreen_3(); // 説明画面3枚目を描画
+  }else if(gmn == 5){
+    last();
   }
 }

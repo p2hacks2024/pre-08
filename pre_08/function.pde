@@ -217,6 +217,8 @@ void drawGameScreen() {
       startTime = currentTime;
     }
   } else if (state == 2) {
+    effect1.rewind();
+    effect2.rewind();
     // 各要素を1秒ずつ表示
     if (currentTime - startTime < 1000) {
       textSize(200);
@@ -258,9 +260,11 @@ void drawGameScreen() {
     float sideImageXRight = width - sideImageWidth; // 左右対称にするために右側の位置を調整
     if (gameEnded) {
       if (clickedAnswer == correctAnswers[currentQuestion]) {
+        effect2.play();
         image(light_shine, sideImageXLeft, height * 0.1, sideImageWidth, sideImageHeight); // 正解時の画像
         image(light_shine, sideImageXRight, height * 0.1, sideImageWidth, sideImageHeight); // 正解時の画像
       } else {
+        effect1.play();
         image(light_break, sideImageXLeft, height * 0.1, sideImageWidth, sideImageHeight); // 不正解時の画像
         image(light_break, sideImageXRight, height * 0.1, sideImageWidth, sideImageHeight); // 不正解時の画像
       }
@@ -441,13 +445,16 @@ void mousePressed() {
       float optionY = (i < 2) ? firstRowY : secondRowY;
 
       if (mouseX > optionX && mouseX < optionX + optionWidth && mouseY > optionY && mouseY < optionY + optionHeight) {
+       // effect2.play();
         clickedAnswer = i;
         gameEnded = true;
         questionAnswered[currentQuestion] = true;
         questionResults[currentQuestion] = (clickedAnswer == correctAnswers[currentQuestion]);
-        if(questionResults[currentQuestion]){
+        if (questionResults[currentQuestion]) {
           ans++;
           println(ans);
+        }else{
+          //effect1.play();
         }
         break;
       }
@@ -458,8 +465,8 @@ void mousePressed() {
 // ゲーム画面のみ
 void keyPressed() {
   if (gameEnded && key == ' '&& total >= 10) {
-     background(0); // 背景色
-     gmn = 5;
+    background(0); // 背景色
+    gmn = 5;
   } else if (gameEnded && key == ' ') {
     total++;
     gameEnded = false;

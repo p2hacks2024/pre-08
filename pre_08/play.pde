@@ -3,8 +3,8 @@ void drawGameScreen() {
   int currentTime = millis();
 
   if (state == 1) {
-    // 最初の3秒間「第〇問」を表示
-    if (currentTime - startTime < 2000) {
+    // 最初の1秒間「第〇問」を表示
+    if (currentTime - startTime < 1000) {
       textSize(200);
       fill(255);
       textAlign(CENTER, CENTER);
@@ -17,7 +17,7 @@ void drawGameScreen() {
     effect1.rewind();
     effect2.rewind();
     // 各要素を1秒ずつ表示
-    if (currentTime - startTime < 1000) {
+    if (currentTime - startTime < 750) {
       textSize(200);
       fill(255);
       textAlign(CENTER, CENTER);
@@ -153,7 +153,7 @@ void drawGameScreen() {
 
     if (!gameEnded) {
       fill(255, 255, 0);
-      float elapsedTime = (millis() - startTime) / 1000.0; // 経過時間を秒に変換
+      float elapsedTime = (millis() - startTime) / 1500.0; // 経過時間を秒に変換
       float progress = map(elapsedTime, 0, 4, barX, barX + barWidth);
 
       // 時間が過ぎたとこがカラフルになる

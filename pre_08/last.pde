@@ -2,7 +2,7 @@
 int inputNumber = ans; // ユーザーが入力する数値（デフォルトは10）
 int bulbIndex = 0; // 電球のインデックス
 int cnt = 0;//初期配置のためのもの
-String resultMessage = "   /10 問あなたは 正解しました。\n電球が点灯します。"; // 結果メッセージ
+String resultMessage = "   　/10 問あなたは 正解しました。\n電球が点灯します。"; // 結果メッセージ
 // テキストアニメーション用変数
 int charIndex = 0; // 文字インデックス
 int displaySpeed = 4; // テキスト表示速度
